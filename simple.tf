@@ -112,3 +112,45 @@ terraform {
 #  # show IP, run 'terraform refresh' if not populated
 #  value = libvirt_domain.domain-ubuntu.*.network_interface.0.addresses
 #}
+
+resource "null_resource" "clean-ssh" {
+  provisioner "local-exec" {
+     when = "destroy"
+     command = "/home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/clean-ssh.sh | tee -a /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/clean-ssh.log "
+     }
+}
+
+resource "time_sleep" "wait_30_seconds" {
+  depends_on = [libvirt_domain.domain-ubuntu]
+  create_duration = "60s"
+}
+
+resource "null_resource" "ansible-ping" {
+ depends_on = [time_sleep.wait_30_seconds]       
+ provisioner "local-exec" {
+    command = "/usr/bin/ansible -i /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/inventory nodes -b -m shell -a 'uptime' | tee -a /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/ejecucion.ansible"
+  }
+}
+
+resource "null_resource" "ansible-install-k8s" {
+ depends_on = [null_resource.ansible-ping]       
+ provisioner "local-exec" {
+    command = "/usr/bin/ansible-playbook -i /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/inventory /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/install-k8s.yml | tee -a /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/ejecucion.ansible"
+  }
+}
+
+
+resource "null_resource" "ansible-install-master" {
+ depends_on = [null_resource.ansible-install-k8s]       
+ provisioner "local-exec" {
+    command = "/usr/bin/ansible-playbook -i /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/inventory /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/master.yml | tee -a /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/ejecucion.ansible"
+  }
+}
+
+resource "null_resource" "ansible-install-workers" {
+ depends_on = [null_resource.ansible-install-master]       
+ provisioner "local-exec" {
+    command = "/usr/bin/ansible-playbook -i /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/inventory /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/workers.yml | tee -a /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/ejecucion.ansible"
+  }
+}
+

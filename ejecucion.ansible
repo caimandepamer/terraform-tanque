@@ -1,0 +1,41 @@
+
+vm2 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.242 port 22: Connection refused",
+    "unreachable": true
+}
+vm3 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.243 port 22: Connection refused",
+    "unreachable": true
+}
+vm1 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.241 port 22: Connection timed out",
+    "unreachable": true
+}
+vm4 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.240 port 22: Connection timed out",
+    "unreachable": true
+}
+vm1 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\nIT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!\r\nSomeone could be eavesdropping on you right now (man-in-the-middle attack)!\r\nIt is also possible that a host key has just been changed.\r\nThe fingerprint for the ECDSA key sent by the remote host is\nSHA256:hvMOTdy2Qxjuzy3PNAtdVBP+xav0n+5fVXSGoknjNDU.\r\nPlease contact your system administrator.\r\nAdd correct host key in /home/rcampove/.ssh/known_hosts to get rid of this message.\r\nOffending ECDSA key in /home/rcampove/.ssh/known_hosts:44\r\n  remove with:\r\n  ssh-keygen -f \"/home/rcampove/.ssh/known_hosts\" -R \"192.168.0.241\"\r\nPassword authentication is disabled to avoid man-in-the-middle attacks.\r\nKeyboard-interactive authentication is disabled to avoid man-in-the-middle attacks.\r\nubuntu@192.168.0.241: Permission denied (publickey,password).",
+    "unreachable": true
+}
+vm2 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\nIT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!\r\nSomeone could be eavesdropping on you right now (man-in-the-middle attack)!\r\nIt is also possible that a host key has just been changed.\r\nThe fingerprint for the ECDSA key sent by the remote host is\nSHA256:U5T6nEMI6BzE1jFLhGT9yOqDyuh9EQp2sThs9wwR+X0.\r\nPlease contact your system administrator.\r\nAdd correct host key in /home/rcampove/.ssh/known_hosts to get rid of this message.\r\nOffending ECDSA key in /home/rcampove/.ssh/known_hosts:43\r\n  remove with:\r\n  ssh-keygen -f \"/home/rcampove/.ssh/known_hosts\" -R \"192.168.0.242\"\r\nPassword authentication is disabled to avoid man-in-the-middle attacks.\r\nKeyboard-interactive authentication is disabled to avoid man-in-the-middle attacks.\r\nubuntu@192.168.0.242: Permission denied (publickey,password).",
+    "unreachable": true
+}
+vm4 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\nIT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!\r\nSomeone could be eavesdropping on you right now (man-in-the-middle attack)!\r\nIt is also possible that a host key has just been changed.\r\nThe fingerprint for the ECDSA key sent by the remote host is\nSHA256:PveMHYNqdrM+OdoayaJQ6KBog5GbSCc2GbJMJcdMRSU.\r\nPlease contact your system administrator.\r\nAdd correct host key in /home/rcampove/.ssh/known_hosts to get rid of this message.\r\nOffending ECDSA key in /home/rcampove/.ssh/known_hosts:45\r\n  remove with:\r\n  ssh-keygen -f \"/home/rcampove/.ssh/known_hosts\" -R \"192.168.0.240\"\r\nPassword authentication is disabled to avoid man-in-the-middle attacks.\r\nKeyboard-interactive authentication is disabled to avoid man-in-the-middle attacks.\r\nubuntu@192.168.0.240: Permission denied (publickey,password).",
+    "unreachable": true
+}
+vm3 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\nIT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!\r\nSomeone could be eavesdropping on you right now (man-in-the-middle attack)!\r\nIt is also possible that a host key has just been changed.\r\nThe fingerprint for the ECDSA key sent by the remote host is\nSHA256:Xaw6Ir7yUD2M0h6lOHFVEn9N5fpqayk42dsGqcaydws.\r\nPlease contact your system administrator.\r\nAdd correct host key in /home/rcampove/.ssh/known_hosts to get rid of this message.\r\nOffending ECDSA key in /home/rcampove/.ssh/known_hosts:42\r\n  remove with:\r\n  ssh-keygen -f \"/home/rcampove/.ssh/known_hosts\" -R \"192.168.0.243\"\r\nPassword authentication is disabled to avoid man-in-the-middle attacks.\r\nKeyboard-interactive authentication is disabled to avoid man-in-the-middle attacks.\r\nubuntu@192.168.0.243: Permission denied (publickey,password).",
+    "unreachable": true
+}
