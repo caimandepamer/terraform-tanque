@@ -1,8 +1,13 @@
-[nodes]
+[workers]
 vm1 ansible_host=192.168.0.241
 vm2 ansible_host=192.168.0.242
 vm3 ansible_host=192.168.0.243
-vm4 ansible_host=192.168.0.244
+[masters]
+vm4 ansible_host=192.168.0.240
+
+[nodes:children]
+workers
+masters
 
 [nodes:vars]
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'

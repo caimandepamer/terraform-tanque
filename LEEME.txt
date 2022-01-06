@@ -1,0 +1,30 @@
+Para aplicar el terraform: 
+# terraform init
+# terraform plan
+# terraform apply
+
+Para destruir todo y comenzar de nuevo: 
+# terraform destroy
+
+Para validar la conexion por ansibel:
+# ansible -m ping -i inventory nodes
+
+Para instalar kubernetes:
+# ansible-playbook -i inventory install-k8s.yml
+
+Para configurar Master:
+# ansible-playbook -i inventory master.yml
+
+Para configurar los workers:
+# ansible-playbook -i inventory workers.yml
+
+
+
+
+
+Definir el tamaño del disco de cada VM: 
+# qemu-img info bionic-server-cloudimg-amd64.img   # << ver el tamaño actual  
+# qemu-img resize bionic-server-cloudimg-amd64.img 10G  # << cambiar a 10GB
+# qemu-img info bionic-server-cloudimg-amd64.img   # << volver a validar
+
+
