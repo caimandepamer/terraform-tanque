@@ -6,6 +6,7 @@ variable "domain" { default = "example.com" }
 
 variable "vm_names" {
   type = list(string)
+  #default = ["tanque"]
   default = ["alpha","bravo", "charlie", "tanque"]
 }
 
@@ -34,7 +35,8 @@ resource "libvirt_volume" "os_image" {
   name = "${var.vm_names[count.index]}-bionic.qcow2"
 #  name = "${var.hostname}-os_image"
   pool = "default"
-  source = "/home/rcampove/terraform/test/img/bionic-server-cloudimg-amd64.img"
+  source = "/home/rcampove/terraform/test/img/focal-server-cloudimg-amd64.img"
+  #source = "/home/rcampove/terraform/test/img/bionic-server-cloudimg-amd64.img"
   format = "qcow2"
 }
 
@@ -70,7 +72,7 @@ data "template_file" "network_config" {
 resource "libvirt_domain" "domain-ubuntu" {
   count = length(var.vm_names)
   name = var.vm_names[count.index]
-  memory = "16384"
+  memory = "4096"
   vcpu = 2
 
 #  name = var.hostname
@@ -115,7 +117,7 @@ terraform {
 
 resource "null_resource" "clean-ssh" {
   provisioner "local-exec" {
-     when = "destroy"
+     when = destroy
      command = "/home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/clean-ssh.sh | tee -a /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/clean-ssh.log "
      }
 }
@@ -132,25 +134,25 @@ resource "null_resource" "ansible-ping" {
   }
 }
 
-resource "null_resource" "ansible-install-k8s" {
- depends_on = [null_resource.ansible-ping]       
- provisioner "local-exec" {
-    command = "/usr/bin/ansible-playbook -i /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/inventory /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/install-k8s.yml | tee -a /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/ejecucion.ansible"
-  }
-}
+#resource "null_resource" "ansible-install-k8s" {
+# depends_on = [null_resource.ansible-ping]       
+# provisioner "local-exec" {
+#    command = "/usr/bin/ansible-playbook -i /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/inventory /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/install-k8s.yml | tee -a /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/ejecucion.ansible"
+#  }
+#}
 
 
-resource "null_resource" "ansible-install-master" {
- depends_on = [null_resource.ansible-install-k8s]       
- provisioner "local-exec" {
-    command = "/usr/bin/ansible-playbook -i /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/inventory /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/master.yml | tee -a /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/ejecucion.ansible"
-  }
-}
+#resource "null_resource" "ansible-install-master" {
+# depends_on = [null_resource.ansible-install-k8s]       
+# provisioner "local-exec" {
+#    command = "/usr/bin/ansible-playbook -i /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/inventory /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/master.yml | tee -a /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/ejecucion.ansible"
+#  }
+#}
 
-resource "null_resource" "ansible-install-workers" {
- depends_on = [null_resource.ansible-install-master]       
- provisioner "local-exec" {
-    command = "/usr/bin/ansible-playbook -i /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/inventory /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/workers.yml | tee -a /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/ejecucion.ansible"
-  }
-}
+#resource "null_resource" "ansible-install-workers" {
+# depends_on = [null_resource.ansible-install-master]       
+# provisioner "local-exec" {
+#    command = "/usr/bin/ansible-playbook -i /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/inventory /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/workers.yml | tee -a /home/rcampove/terraform/test/terraform-libvirt-ubuntu-examples/simple/ejecucion.ansible"
+#  }
+#}
 

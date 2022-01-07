@@ -39,3 +39,230 @@ vm3 | UNREACHABLE! => {
     "msg": "Failed to connect to the host via ssh: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\nIT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!\r\nSomeone could be eavesdropping on you right now (man-in-the-middle attack)!\r\nIt is also possible that a host key has just been changed.\r\nThe fingerprint for the ECDSA key sent by the remote host is\nSHA256:Xaw6Ir7yUD2M0h6lOHFVEn9N5fpqayk42dsGqcaydws.\r\nPlease contact your system administrator.\r\nAdd correct host key in /home/rcampove/.ssh/known_hosts to get rid of this message.\r\nOffending ECDSA key in /home/rcampove/.ssh/known_hosts:42\r\n  remove with:\r\n  ssh-keygen -f \"/home/rcampove/.ssh/known_hosts\" -R \"192.168.0.243\"\r\nPassword authentication is disabled to avoid man-in-the-middle attacks.\r\nKeyboard-interactive authentication is disabled to avoid man-in-the-middle attacks.\r\nubuntu@192.168.0.243: Permission denied (publickey,password).",
     "unreachable": true
 }
+vm2 | CHANGED | rc=0 >>
+ 19:04:06 up 0 min,  2 users,  load average: 0.39, 0.12, 0.04
+vm4 | CHANGED | rc=0 >>
+ 19:04:06 up 0 min,  1 user,  load average: 0.39, 0.11, 0.03
+vm1 | CHANGED | rc=0 >>
+ 19:04:06 up 0 min,  1 user,  load average: 0.32, 0.09, 0.03
+vm3 | CHANGED | rc=0 >>
+ 19:04:06 up 0 min,  1 user,  load average: 0.32, 0.09, 0.03
+ _________________________
+< PLAY [masters, workers] >
+ -------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+ ________________________
+< TASK [Gathering Facts] >
+ ------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+ok: [vm4]
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+ ______________________________________
+< TASK [Create containerd config file] >
+ --------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+changed: [vm3]
+changed: [vm4]
+changed: [vm1]
+changed: [vm2]
+ ________________________________
+< TASK [Add conf for containerd] >
+ --------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+changed: [vm4]
+changed: [vm1]
+changed: [vm3]
+changed: [vm2]
+ _________________
+< TASK [modprobe] >
+ -----------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+changed: [vm1]
+changed: [vm2]
+changed: [vm3]
+changed: [vm4]
+ ____________________________________________________________
+< TASK [Set system configurations for Kubernetes networking] >
+ ------------------------------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+changed: [vm4]
+changed: [vm1]
+changed: [vm2]
+changed: [vm3]
+ ________________________________
+< TASK [Add conf for containerd] >
+ --------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+changed: [vm1]
+changed: [vm4]
+changed: [vm3]
+changed: [vm2]
+ ___________________________
+< TASK [Apply new settings] >
+ ---------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+changed: [vm4]
+changed: [vm3]
+changed: [vm2]
+changed: [vm1]
+ ___________________________
+< TASK [install containerd] >
+ ---------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+fatal: [vm1]: FAILED! => {"changed": true, "cmd": "sudo apt-get update && sudo apt-get install -y containerd\nsudo mkdir -p /etc/containerd\nsudo containerd config default | sudo tee /etc/containerd/config.toml\nsudo systemctl restart containerd\n", "delta": "0:00:00.371494", "end": "2022-01-06 19:04:14.244779", "msg": "non-zero return code", "rc": 5, "start": "2022-01-06 19:04:13.873285", "stderr": "E: Could not get lock /var/lib/apt/lists/lock - open (11: Resource temporarily unavailable)\nE: Unable to lock directory /var/lib/apt/lists/\nsudo: containerd: command not found\nFailed to restart containerd.service: Unit containerd.service not found.", "stderr_lines": ["E: Could not get lock /var/lib/apt/lists/lock - open (11: Resource temporarily unavailable)", "E: Unable to lock directory /var/lib/apt/lists/", "sudo: containerd: command not found", "Failed to restart containerd.service: Unit containerd.service not found."], "stdout": "Reading package lists...", "stdout_lines": ["Reading package lists..."]}
+fatal: [vm3]: FAILED! => {"changed": true, "cmd": "sudo apt-get update && sudo apt-get install -y containerd\nsudo mkdir -p /etc/containerd\nsudo containerd config default | sudo tee /etc/containerd/config.toml\nsudo systemctl restart containerd\n", "delta": "0:00:00.373726", "end": "2022-01-06 19:04:14.251815", "msg": "non-zero return code", "rc": 5, "start": "2022-01-06 19:04:13.878089", "stderr": "E: Could not get lock /var/lib/apt/lists/lock - open (11: Resource temporarily unavailable)\nE: Unable to lock directory /var/lib/apt/lists/\nsudo: containerd: command not found\nFailed to restart containerd.service: Unit containerd.service not found.", "stderr_lines": ["E: Could not get lock /var/lib/apt/lists/lock - open (11: Resource temporarily unavailable)", "E: Unable to lock directory /var/lib/apt/lists/", "sudo: containerd: command not found", "Failed to restart containerd.service: Unit containerd.service not found."], "stdout": "Reading package lists...", "stdout_lines": ["Reading package lists..."]}
+fatal: [vm4]: FAILED! => {"changed": true, "cmd": "sudo apt-get update && sudo apt-get install -y containerd\nsudo mkdir -p /etc/containerd\nsudo containerd config default | sudo tee /etc/containerd/config.toml\nsudo systemctl restart containerd\n", "delta": "0:00:00.423566", "end": "2022-01-06 19:04:14.288256", "msg": "non-zero return code", "rc": 5, "start": "2022-01-06 19:04:13.864690", "stderr": "E: Could not get lock /var/lib/apt/lists/lock - open (11: Resource temporarily unavailable)\nE: Unable to lock directory /var/lib/apt/lists/\nsudo: containerd: command not found\nFailed to restart containerd.service: Unit containerd.service not found.", "stderr_lines": ["E: Could not get lock /var/lib/apt/lists/lock - open (11: Resource temporarily unavailable)", "E: Unable to lock directory /var/lib/apt/lists/", "sudo: containerd: command not found", "Failed to restart containerd.service: Unit containerd.service not found."], "stdout": "Reading package lists...", "stdout_lines": ["Reading package lists..."]}
+fatal: [vm2]: FAILED! => {"changed": true, "cmd": "sudo apt-get update && sudo apt-get install -y containerd\nsudo mkdir -p /etc/containerd\nsudo containerd config default | sudo tee /etc/containerd/config.toml\nsudo systemctl restart containerd\n", "delta": "0:00:00.412139", "end": "2022-01-06 19:04:14.278148", "msg": "non-zero return code", "rc": 5, "start": "2022-01-06 19:04:13.866009", "stderr": "E: Could not get lock /var/lib/apt/lists/lock - open (11: Resource temporarily unavailable)\nE: Unable to lock directory /var/lib/apt/lists/\nsudo: containerd: command not found\nFailed to restart containerd.service: Unit containerd.service not found.", "stderr_lines": ["E: Could not get lock /var/lib/apt/lists/lock - open (11: Resource temporarily unavailable)", "E: Unable to lock directory /var/lib/apt/lists/", "sudo: containerd: command not found", "Failed to restart containerd.service: Unit containerd.service not found."], "stdout": "Reading package lists...", "stdout_lines": ["Reading package lists..."]}
+ ____________
+< PLAY RECAP >
+ ------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+vm1                        : ok=7    changed=6    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+vm2                        : ok=7    changed=6    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+vm3                        : ok=7    changed=6    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+vm4                        : ok=7    changed=6    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
+ ________________
+< PLAY [workers] >
+ ----------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+ ________________________
+< TASK [Gathering Facts] >
+ ------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+ok: [vm2]
+ok: [vm3]
+ok: [vm1]
+ ________________________________________________________
+/ TASK [Copy join command from Ansiblehost to the worker \
+\ nodes.]                                                /
+ --------------------------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+fatal: [vm1]: FAILED! => {"changed": false, "msg": "Could not find or access '/tmp/kubernetes_join_command' on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+fatal: [vm2]: FAILED! => {"changed": false, "msg": "Could not find or access '/tmp/kubernetes_join_command' on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+fatal: [vm3]: FAILED! => {"changed": false, "msg": "Could not find or access '/tmp/kubernetes_join_command' on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+ ____________
+< PLAY RECAP >
+ ------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+vm1                        : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+vm2                        : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+vm3                        : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
+vm4 | CHANGED | rc=0 >>
+ 17:43:29 up 1 min,  1 user,  load average: 0.78, 0.24, 0.08
+vm3 | CHANGED | rc=0 >>
+ 17:43:29 up 1 min,  1 user,  load average: 0.57, 0.15, 0.05
+vm2 | CHANGED | rc=0 >>
+ 17:43:29 up 1 min,  1 user,  load average: 1.48, 0.44, 0.15
+vm1 | CHANGED | rc=0 >>
+ 17:43:30 up 1 min,  1 user,  load average: 0.90, 0.27, 0.09
+vm4 | CHANGED | rc=0 >>
+ 18:13:13 up 1 min,  2 users,  load average: 2.10, 0.73, 0.26
+vm2 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.242 port 22: Connection timed out",
+    "unreachable": true
+}
+vm1 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.241 port 22: Connection timed out",
+    "unreachable": true
+}
+vm3 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.243 port 22: Connection timed out",
+    "unreachable": true
+}
+vm4 | CHANGED | rc=0 >>
+ 18:42:43 up 1 min,  1 user,  load average: 0.94, 0.31, 0.11
+vm2 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.242 port 22: No route to host",
+    "unreachable": true
+}
+vm3 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.243 port 22: No route to host",
+    "unreachable": true
+}
+vm1 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.241 port 22: No route to host",
+    "unreachable": true
+}
