@@ -1,0 +1,42 @@
+#cloud-config
+hostname: ${Hostname}
+timezone: America/Lima
+manage_etc_hosts: true
+ssh_pwauth: true
+disable_root: false
+users:
+  - default
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, wheel
+    lock_passwd: false
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCg6v7P4nbmWllLggjGyYV0Sj3CngzsfYqRbcxWCNEJ0zuULfsUIJLuuMcbXHHD2TDkfnas8n40lmLYcrqzpmCKZph8yd0QwF/ICXOIBjNsiSCwqcidRWrDKnho5hyypqrPZ/hqYMWctEoH+d0mGMzE0KotFFc+5eUDSbEXmelPg9WxzrGoeQpqgCS3Lqg48u8kaD6PvOduagXT4Cy2bAf5kBnFSMUxrJ9tJBUoAQ6kh1Qb94TVJLEfrMQ4o/2qVKdiuN69cY2kN2jrNMyGVS8bPlva6qK+YjlbYrVDX6UFrsCWl/X2L+wi03W3QRhBn2lfiwe0YnCjH1shMLw0mYAUs0QHogZEE5cPsTF7fKu06sa+XG4qRQfnxicX00aQeIj4G4jFq3mCSc9Djx+Ex1WGoqTKrpRAPpVMvYrJvzJoOyDGYkXzTyfvxNFsA94XuKMOH6UcbBO47sbKrMYChx3/4u1trqcgBkLSXynN6nB0oe8Y3KLTq6pcXIorxYBI5HoK1ziaIrGDmynR8hYuYd6R8XDki+cef9kgzQXI/+ozuaBsUqXBt7vXAdaBH4jOB2j6lIzQJIZFb9bOjMGIG1d2Z7zfXjpOte8CBudfdqJNtNzbEz/wa0GRsbpb2+oZ0qlCCiHPFYuRiF1aqvJ11rIGsGIzoVZ6ZvYyP0gXFHuznQ== 
+chpasswd:
+  list: |
+    ubuntu:ubuntu
+    root:root
+  expire: False
+apt:
+  sources:
+    docker:
+      source: "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+      keyid: "9DC858229FC7DD38854AE2D88D81803C0EBFCD88"
+runcmd:
+  # install docker following the guide: https://docs.docker.com/install/linux/docker-ce/ubuntu/
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get -y update
+  - sudo apt-get -y install docker-ce docker-ce-cli containerd.io
+  - sudo systemctl enable docker
+  # install docker-compose following the guide: https://docs.docker.com/compose/install/
+  - sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - sudo chmod +x /usr/local/bin/docker-compose
+power_state:
+  mode: reboot
+  message: Restarting after installing docker & docker-compose
+
+
+# written to /var/log/cloud-init-output.log
+final_message: "The system is finally up, after $UPTIME seconds"
+

@@ -1,0 +1,43 @@
+---
+- hosts: "masters"
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  become_user: root
+  gather_facts: yes
+  connection: ssh
+
+  tasks:
+
+   - name: Deploy kubernetes cluster on master
+     shell:
+       kubeadm init
+
+   - name: obtener token para workers
+     shell: kubeadm token create  --print-join-command
+     register: kubernetes_join_command
+
+   - debug:
+      msg: "{{ kubernetes_join_command.stdout }}"
+
+   - name: Copy join command to local file.
+     copy: 
+        content: "{{ kubernetes_join_command.stdout_lines[0] }}"
+        dest: /tmp/kubernetes_join_command
+    # delegate_to: localhost
+
+   - name: copy from remote 2
+     fetch:
+       src: /tmp/kubernetes_join_command 
+       dest: /tmp/kubernetes_join_command
+       flat: yes
+
+   - name: copy from remote config para el kubectl
+     fetch:
+       src: /etc/kubernetes/admin.conf
+       dest: /tmp/admin.conf
+       flat: yes
+   
+   - name: instalar redes
+     shell: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')" --kubeconfig=/etc/kubernetes/admin.conf 
+

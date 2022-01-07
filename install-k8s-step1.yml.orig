@@ -1,0 +1,40 @@
+---
+- hosts: "vm1"
+#- hosts: "masters, workers"
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  become_user: root
+  gather_facts: yes
+  connection: ssh
+
+  tasks:
+   - name: Remove all docker
+     apt:
+       name: '{{ item }}'
+       state: absent
+     with_items:
+        docker-engine
+        docker
+        docker.io 
+        docker-ce 
+        docker-ce-cli
+
+   - name: PreReq Docker
+     apt_key:
+        url: "https://download.docker.com/linux/ubuntu/gpg"
+        state: present
+
+   - name: PreReq Docker add repository
+     ansible.builtin.apt_repository 
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+
+   - name: Remove all docker
+     apt:
+       name: docker-ce
+       update_cache: True
+       state: present
+
+

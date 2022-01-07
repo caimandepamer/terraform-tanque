@@ -266,3 +266,19 @@ vm1 | UNREACHABLE! => {
     "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.241 port 22: No route to host",
     "unreachable": true
 }
+vm1 | CHANGED | rc=0 >>
+ 20:54:06 up 1 min,  1 user,  load average: 1.01, 0.31, 0.11
+vm3 | CHANGED | rc=0 >>
+ 01:54:07 up 1 min,  1 user,  load average: 0.69, 0.23, 0.08
+vm2 | CHANGED | rc=0 >>
+ 20:54:07 up 1 min,  1 user,  load average: 0.79, 0.25, 0.09
+vm4 | CHANGED | rc=0 >>
+ 20:54:07 up 1 min,  1 user,  load average: 1.09, 0.39, 0.14
+vm2 | CHANGED | rc=0 >>
+ 00:42:17 up 1 min,  1 user,  load average: 1.57, 0.50, 0.18
+vm1 | CHANGED | rc=0 >>
+ 05:42:18 up 1 min,  1 user,  load average: 0.74, 0.24, 0.08
+vm4 | CHANGED | rc=0 >>
+ 00:42:18 up 1 min,  1 user,  load average: 0.86, 0.26, 0.09
+vm3 | CHANGED | rc=0 >>
+ 05:42:18 up 1 min,  1 user,  load average: 0.58, 0.16, 0.06

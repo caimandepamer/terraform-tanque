@@ -1,0 +1,61 @@
+---
+- hosts: "masters, workers"
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  become_user: root
+  gather_facts: yes
+  connection: ssh
+
+  tasks:
+   - name: Create daemon.json
+     copy: 
+       dest: "/etc/docker/daemon.json"
+       content: |
+         {
+         "exec-opts": ["native.cgroupdriver=systemd"],
+         "log-driver": "json-file",
+         "log-opts": {
+         "max-size": "100m"
+         },
+         "storage-driver": "overlay2"
+         }
+
+   - name: restart daemon
+     shell: 
+       "systemctl daemon-reload"
+
+   - name: restart docker
+     shell:
+       "systemctl restart docker"
+       
+   - name: Install K8s
+     apt:
+      name: '{{ item }}'
+      state: present
+     with_items:
+       apt-transport-https
+       
+   - name: install kuber
+     apt_key:
+       url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+       state: present
+
+   - name: Create kubernetes.list
+     copy: 
+       dest: "/etc/apt/sources.list.d/kubernetes.list"
+       content: |
+         deb http://apt.kubernetes.io/ kubernetes-xenial main
+
+   - name: update cache
+     shell: 
+        apt-get update
+
+   - name: Install K8s2
+     shell:
+        apt-get install -y kubelet kubeadm kubectl
+
+   - name: no SWAP
+     shell: 
+        "swapoff -a"
+
