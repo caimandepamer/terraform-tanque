@@ -1,0 +1,16 @@
+---
+- hosts: "masters, workers"
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  become_user: root
+  gather_facts: yes
+  connection: ssh
+
+  tasks:
+   - name: Wait until words appeasr in file
+     wait_for:
+       path: /var/log/cloud-init-output.log
+       search_regex: The system is finally up
+     register: waitfor 
+

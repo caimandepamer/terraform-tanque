@@ -14,3 +14,6 @@
      become: yes
      command: sh /tmp/kubernetes_join_command
      register: joined_or_not
+
+   - name: mostrar como conectarse al k8s
+     debug: msg="export KUBECONFIG=/tmp/admin.conf; ./kubectl get nodes"

@@ -282,3 +282,57 @@ vm4 | CHANGED | rc=0 >>
  00:42:18 up 1 min,  1 user,  load average: 0.86, 0.26, 0.09
 vm3 | CHANGED | rc=0 >>
  05:42:18 up 1 min,  1 user,  load average: 0.58, 0.16, 0.06
+vm4 | CHANGED | rc=0 >>
+ 18:16:04 up 1 min,  1 user,  load average: 0.32, 0.11, 0.04
+vm1 | CHANGED | rc=0 >>
+ 13:16:04 up 1 min,  1 user,  load average: 0.43, 0.14, 0.05
+vm2 | CHANGED | rc=0 >>
+ 13:16:04 up 1 min,  1 user,  load average: 0.85, 0.29, 0.10
+vm3 | CHANGED | rc=0 >>
+ 18:16:04 up 1 min,  1 user,  load average: 1.44, 0.46, 0.16
+vm1 | CHANGED | rc=0 >>
+ 13:50:48 up 1 min,  1 user,  load average: 0.69, 0.26, 0.09
+vm4 | CHANGED | rc=0 >>
+ 13:50:48 up 1 min,  1 user,  load average: 0.47, 0.16, 0.06
+vm3 | CHANGED | rc=0 >>
+ 18:50:48 up 1 min,  1 user,  load average: 0.26, 0.09, 0.03
+vm2 | CHANGED | rc=0 >>
+ 13:50:48 up 1 min,  1 user,  load average: 1.33, 0.46, 0.16
+vm4 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.240 port 22: Connection refused",
+    "unreachable": true
+}
+vm3 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.243 port 22: Connection refused",
+    "unreachable": true
+}
+vm1 | CHANGED | rc=0 >>
+ 19:15:57 up 1 min,  1 user,  load average: 0.40, 0.12, 0.04
+vm2 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.242 port 22: Connection refused",
+    "unreachable": true
+}
+vm1 | CHANGED | rc=0 >>
+ 14:56:19 up 0 min,  1 user,  load average: 0.15, 0.03, 0.01
+vm2 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.242 port 22: Connection timed out",
+    "unreachable": true
+}
+vm2 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.241 port 22: Connection refused",
+    "unreachable": true
+}
+vm1 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.0.240 port 22: Connection refused",
+    "unreachable": true
+}
+vm1 | CHANGED | rc=0 >>
+ 15:08:44 up 1 min,  1 user,  load average: 0.63, 0.17, 0.06
+vm2 | CHANGED | rc=0 >>
+ 15:08:44 up 1 min,  1 user,  load average: 0.72, 0.23, 0.08

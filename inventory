@@ -1,9 +1,10 @@
 [workers]
-vm1 ansible_host=192.168.0.241
-vm2 ansible_host=192.168.0.242
-vm3 ansible_host=192.168.0.243
+#vm3 ansible_host=192.168.0.243
+vm1 ansible_host=192.168.0.240
+
 [masters]
-vm4 ansible_host=192.168.0.240
+vm2 ansible_host=192.168.0.241
+#vm4 ansible_host=192.168.0.240
 
 [nodes:children]
 workers
@@ -13,6 +14,7 @@ masters
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 ansible_ssh_user=ubuntu
 ansible_ssh_pass=ubuntu
+ansible_become_password=ubuntu
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3

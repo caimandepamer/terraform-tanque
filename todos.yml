@@ -8,6 +8,51 @@
   connection: ssh
 
   tasks:
+#   - local_action: wait_for port=22 host="{{ ansible_ssh_host | default(inventory_hostname) }}" search_regex=OpenSSH delay=10
+
+#   - name: Wait until words appeasr in file
+#     wait_for:
+#       path: /var/log/cloud-init-output.log
+#       search_regex: The system is finally up
+#     register: waitfor 
+
+   - name: Wait for apt to unlock
+     become: yes
+     shell:  while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 5; done;
+
+   - name: Install K8s
+     apt:
+      name: '{{ item }}'
+      state: present
+     with_items:
+       apt-transport-https
+     
+
+#============================================
+   - name: Install aptitude using apt
+     apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+   - name: Install required system packages
+     apt: name={{ item }} state=latest update_cache=yes
+     loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
+
+   - name: Add Docker GPG apt Key
+     apt_key:
+       url: https://download.docker.com/linux/ubuntu/gpg
+       state: present
+
+   - name: Add Docker Repository
+     apt_repository:
+       repo: deb https://download.docker.com/linux/ubuntu bionic stable
+       state: present
+
+   - name: Update apt and install docker-ce
+     apt: update_cache=yes name=docker-ce state=latest
+#============================================
+   - name: enable docker
+     shell:
+        systemctl enable --now docker
+
    - name: Create daemon.json
      copy: 
        dest: "/etc/docker/daemon.json"
@@ -28,14 +73,7 @@
    - name: restart docker
      shell:
        "systemctl restart docker"
-       
-   - name: Install K8s
-     apt:
-      name: '{{ item }}'
-      state: present
-     with_items:
-       apt-transport-https
-       
+#============================================
    - name: install kuber
      apt_key:
        url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
@@ -54,6 +92,7 @@
    - name: Install K8s2
      shell:
         apt-get install -y kubelet kubeadm kubectl
+
 
    - name: no SWAP
      shell: 
