@@ -7,7 +7,7 @@ variable "domain" { default = "example.com" }
 variable "vm_names" {
   type = list(string)
   #default = ["tanque"]
-  default = ["charlie", "tanque"]
+  default = ["charlie", "tanque", "amumis", "raya"]
 }
 
 
@@ -26,7 +26,7 @@ terraform {
 # instance the provider
 provider "libvirt" {
 #  uri = "qemu:///system"
-  uri = "qemu+ssh://rcampove@172.16.12.135/system"
+  uri = "qemu+ssh://rcampove@192.168.0.223/system"
 }
 
 # fetch the latest ubuntu release image from their mirrors

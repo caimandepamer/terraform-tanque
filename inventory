@@ -1,10 +1,10 @@
 [workers]
-#vm3 ansible_host=192.168.0.243
+vm3 ansible_host=192.168.0.242
 vm1 ansible_host=192.168.0.240
+vm4 ansible_host=192.168.0.243
 
 [masters]
 vm2 ansible_host=192.168.0.241
-#vm4 ansible_host=192.168.0.240
 
 [nodes:children]
 workers

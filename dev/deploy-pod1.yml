@@ -1,0 +1,26 @@
+- hosts: localhost
+  collections:
+    - kubernetes.core
+  tasks:
+  - name: Ensure the myapp Namespace exists.
+    kubernetes.core.k8s:
+      api_version: v1
+      kind: Namespace
+      name: lab01
+      state: present
+
+  - name: Create a pod
+    k8s:
+      state: present
+      definition:
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: "utilitypod-1"
+          namespace: lab01
+          labels:
+            app: galaxy
+        spec:
+          containers:
+          - name: utilitypod
+            image: busybox
